@@ -37,9 +37,8 @@ def index():
 def ask():
     data = request.json
     question = data['question']
-    description = data['description']
-    eliminated_characters = openai_api.process_question(question, description, chosen_character, characters)
-    return jsonify(eliminated_characters)
+    remaining_characters = openai_api.process_question(question, chosen_character, characters)
+    return jsonify(remaining_characters)
 
 if __name__ == '__main__':
     app.run(debug=True)
