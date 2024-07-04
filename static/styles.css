@@ -16,3 +16,7 @@ body {
 .card.faded {
     opacity: 0.5;
 }
+.faded {
+    opacity: 0.5;
+    transition: opacity 0.5s;
+}

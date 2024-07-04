@@ -33,8 +33,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                data.forEach(character => {
-                    document.getElementById(character.name).classList.add('faded');
+                const allCharacters = document.querySelectorAll('.card');
+                allCharacters.forEach(card => {
+                    if (!data.some(character => character.name === card.id)) {
+                        card.classList.add('faded');
+                    }
                 });
             });
         });

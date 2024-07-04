@@ -29,15 +29,18 @@ characters = [
 
 chosen_character = random.choice(characters)
 
+remaining_characters = characters.copy()
+
 @app.route('/')
 def index():
     return render_template('index.html', characters=characters)
 
 @app.route('/ask', methods=['POST'])
 def ask():
+    global remaining_characters
     data = request.json
     question = data['question']
-    remaining_characters = openai_api.process_question(question, chosen_character, characters)
+    remaining_characters = openai_api.process_question(question, chosen_character, remaining_characters)
     return jsonify(remaining_characters)
 
 if __name__ == '__main__':
