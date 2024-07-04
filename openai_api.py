@@ -53,7 +53,7 @@ def chat_completion_request(messages, tools=None, tool_choice=None, model=GPT_MO
         print(f"Exception: {e}")
         return e
 
-def process_question(question, characters):
+def process_question(question, description, chosen_character, characters):
     messages = [
         {"role": "system", "content": "Eliminate characters based on the question."},
         {"role": "user", "content": question},
@@ -62,5 +62,9 @@ def process_question(question, characters):
     
     response = chat_completion_request(messages, tools=tools)
     print(response.choices[0])
-    eliminated_characters = json.loads(response.choices[0].message["function_call"]["arguments"])["eliminated_characters"]
+    content = response.choices[0].message["content"]
+    if chosen_character['description'] in content:
+        eliminated_characters = [c['name'] for c in characters if c['description'] not in content]
+    else:
+        eliminated_characters = [c['name'] for c in characters if c['description'] in content]
     return [c for c in characters if c['name'] in eliminated_characters]

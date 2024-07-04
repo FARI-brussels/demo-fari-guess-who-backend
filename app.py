@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import openai_api
+import random
 
 app = Flask(__name__)
 
@@ -26,14 +27,18 @@ characters = [
     {"name": "Tina", "description": "Tina has short, curly black hair and dark brown eyes. She wears a yellow t-shirt and blue jeans. She has an energetic personality and loves dancing."}
 ]
 
+chosen_character = random.choice(characters)
+
 @app.route('/')
 def index():
     return render_template('index.html', characters=characters)
 
 @app.route('/ask', methods=['POST'])
 def ask():
-    question = request.json['question']
-    eliminated_characters = openai_api.process_question(question, characters)
+    data = request.json
+    question = data['question']
+    description = data['description']
+    eliminated_characters = openai_api.process_question(question, description, chosen_character, characters)
     return jsonify(eliminated_characters)
 
 if __name__ == '__main__':
