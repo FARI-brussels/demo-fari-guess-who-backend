@@ -31,6 +31,9 @@ chosen_character = random.choice(characters)
 
 remaining_characters = characters.copy()
 
+def filter_characters(initial_list, remaining_characters):
+    return [character for character in initial_list if character['name'] in remaining_characters]
+
 @app.route('/')
 def index():
     return render_template('index.html', characters=characters)
@@ -40,7 +43,9 @@ def ask():
     global remaining_characters
     data = request.json
     question = data['question']
-    remaining_characters = openai_api.process_question(question, chosen_character, remaining_characters)
+    response = openai_api.process_question(question, chosen_character, remaining_characters)
+    remaining_characters = filter_characters(characters, response)
+    print(remaining_characters)
     return jsonify(remaining_characters)
 
 if __name__ == '__main__':
