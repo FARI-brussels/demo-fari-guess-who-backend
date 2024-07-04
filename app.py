@@ -32,7 +32,7 @@ def index():
 
 @app.route('/ask', methods=['POST'])
 def ask():
-    question = request.form['question']
+    question = request.json['question']
     eliminated_characters = openai_api.process_question(question, characters)
     return jsonify(eliminated_characters)
 
