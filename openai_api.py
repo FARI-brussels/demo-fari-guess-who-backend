@@ -59,6 +59,8 @@ def process_question(question, characters):
         {"role": "user", "content": question},
         {"role": "function", "name": "eliminate_characters", "content": json.dumps({"question": question, "characters": characters})}
     ]
+    
     response = chat_completion_request(messages, tools=tools)
+    print(response.choices[0])
     eliminated_characters = json.loads(response.choices[0].message["function_call"]["arguments"])["eliminated_characters"]
     return [c for c in characters if c['name'] in eliminated_characters]
