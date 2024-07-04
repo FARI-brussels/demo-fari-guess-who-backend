@@ -1,7 +1,10 @@
-import openai
-
-openai.api_key = 'your_openai_api_key'
-
+import json
+from openai import OpenAI
+from tenacity import retry, wait_random_exponential, stop_after_attempt
+from termcolor import colored  
+openai.api_key = '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'
+GPT_MODEL = "gpt-4o"
+client = OpenAI()
 def process_question(question, characters):
     response = openai.Completion.create(
         engine="davinci",
