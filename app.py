@@ -34,7 +34,7 @@ remaining_characters = characters.copy()
 decision_tree = []
 
 def filter_characters(initial_list, remaining_characters):
-    return [character for character in initial_list if character['name'] in remaining_characters]
+    return [character for character in initial_list if any(rc['name'] == character['name'] for rc in remaining_characters)]
 
 def update_decision_tree(question, response):
     decision_tree.append({
@@ -53,7 +53,7 @@ def ask():
     data = request.json
     question = data['question']
     response = openai_api.process_question(question, chosen_character, remaining_characters)
-    filtered = filter_characters(characters, response)
+    filtered = filter_characters(characters, [rc['name'] for rc in response])
     update_decision_tree(question, filtered)
     remaining_characters = filtered
     

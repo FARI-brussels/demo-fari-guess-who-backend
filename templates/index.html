@@ -41,7 +41,7 @@
                         card.classList.add('faded');
                     }
                 });
-                updateDecisionTree(data);
+                updateDecisionTree(data.map(character => character.name));
             });
         });
 

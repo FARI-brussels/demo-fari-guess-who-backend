@@ -25,7 +25,7 @@ def chat_completion_request(messages, tools=None, tool_choice=None, model=GPT_MO
 
 def process_question(question, chosen_character, characters):
     messages = [
-        {"role": "system", "content": "Eliminate characters based on the question and the chosen character. If the choosen character correspond to a yes of the question, return the player that also correspond to yes and same with no. Return a json with a list of name of the remaining charaters Example : 'remaining_characters' : ['tina', 'bratrice', 'fred']'"},
+        {"role": "system", "content": "Eliminate characters based on the question and the chosen character. If the chosen character corresponds to a yes of the question, return the players that also correspond to yes and same with no. Return a JSON with a list of dictionaries containing the name of the remaining characters and a justification for why they were kept. Example: 'remaining_characters': [{'name': 'tina', 'justification': 'Tina matches the criteria because...'}, {'name': 'beatrice', 'justification': 'Beatrice matches the criteria because...'}]"},
         {"role": "user", "content": f"question: {question}, chosen_character: {chosen_character} characters: {characters}"},
     ]
     response = chat_completion_request(messages)
