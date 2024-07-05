@@ -6,37 +6,6 @@ from termcolor import colored
 openai.api_key = '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'
 GPT_MODEL = "gpt-4o"
 client = OpenAI()
-tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "eliminate_characters",
-            "description": "Eliminate characters based on the question",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "question": {
-                        "type": "string",
-                        "description": "The question asked by the user",
-                    },
-                    "characters": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {"type": "string"},
-                                "description": {"type": "string"},
-                            },
-                            "required": ["name", "description"],
-                        },
-                        "description": "List of characters with their descriptions",
-                    },
-                },
-                "required": ["question", "characters"],
-            },
-        }
-    }
-]
 
 @retry(wait=wait_random_exponential(multiplier=1, max=40), stop=stop_after_attempt(3))
 def chat_completion_request(messages, tools=None, tool_choice=None, model=GPT_MODEL):
@@ -44,8 +13,7 @@ def chat_completion_request(messages, tools=None, tool_choice=None, model=GPT_MO
         response = client.chat.completions.create(
             model=model,
             messages=messages,
-            tools=tools,
-            tool_choice=tool_choice,
+            response_format={ "type": "json_object" }
         )
         return response
     except Exception as e:
@@ -53,18 +21,14 @@ def chat_completion_request(messages, tools=None, tool_choice=None, model=GPT_MO
         print(f"Exception: {e}")
         return e
 
-def process_question(question, description, chosen_character, characters):
+
+
+def process_question(question, chosen_character, characters):
     messages = [
-        {"role": "system", "content": "Eliminate characters based on the question."},
-        {"role": "user", "content": question},
-        {"role": "function", "name": "eliminate_characters", "content": json.dumps({"question": question, "characters": characters})}
+        {"role": "system", "content": "Eliminate characters based on the question and the chosen character. If the choosen character correspond to a yes of the question, return the player that also correspond to yes and same with no. Return a json with a list of name of the remaining charaters Example : 'remaining_characters' : ['tina', 'bratrice', 'fred']'"},
+        {"role": "user", "content": f"question: {question}, chosen_character: {chosen_character} characters: {characters}"},
     ]
-    
-    response = chat_completion_request(messages, tools=tools)
-    print(response.choices[0])
-    content = response.choices[0].message["content"]
-    if chosen_character['description'] in content:
-        eliminated_characters = [c['name'] for c in characters if c['description'] not in content]
-    else:
-        eliminated_characters = [c['name'] for c in characters if c['description'] in content]
-    return [c for c in characters if c['name'] in eliminated_characters]
+    response = chat_completion_request(messages)
+    print(response)
+    remaining_characters = response.choices[0].message.content
+    return json.loads(remaining_characters)["remaining_characters"]

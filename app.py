@@ -31,8 +31,17 @@ chosen_character = random.choice(characters)
 
 remaining_characters = characters.copy()
 
+decision_tree = []
+
 def filter_characters(initial_list, remaining_characters):
     return [character for character in initial_list if character['name'] in remaining_characters]
+
+def update_decision_tree(question, response):
+    decision_tree.append({
+        "question": question,
+        "yes": [char['name'] for char in response],
+        "no": [char['name'] for char in remaining_characters if char not in response]
+    })
 
 @app.route('/')
 def index():
@@ -44,9 +53,16 @@ def ask():
     data = request.json
     question = data['question']
     response = openai_api.process_question(question, chosen_character, remaining_characters)
-    remaining_characters = filter_characters(characters, response)
-    print(remaining_characters)
+    filtered = filter_characters(characters, response)
+    update_decision_tree(question, filtered)
+    remaining_characters = filtered
+    
     return jsonify(remaining_characters)
+
+@app.route('/decision_tree', methods=['GET'])
+def get_decision_tree():
+    print(decision_tree)
+    return jsonify(decision_tree)
 
 if __name__ == '__main__':
     app.run(debug=True)
