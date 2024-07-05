@@ -29,6 +29,5 @@ def process_question(question, chosen_character, characters):
         {"role": "user", "content": f"question: {question}, chosen_character: {chosen_character} characters: {characters}"},
     ]
     response = chat_completion_request(messages)
-    print(response)
     remaining_characters = response.choices[0].message.content
     return json.loads(remaining_characters)["remaining_characters"]

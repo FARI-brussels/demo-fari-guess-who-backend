@@ -53,6 +53,7 @@ def ask():
     data = request.json
     question = data['question']
     response = openai_api.process_question(question, chosen_character, remaining_characters)
+    print([rc['name'] for rc in response])
     filtered = filter_characters(characters, [rc['name'] for rc in response])
     update_decision_tree(question, filtered)
     remaining_characters = filtered
