@@ -15,5 +15,10 @@ class TestApp(unittest.TestCase):
         self.assertIsInstance(data, list)
         self.assertGreater(len(data), 0)
 
-if __name__ == '__main__':
+    def test_generate_question_route(self):
+        response = self.app.post('/ask', json={}, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn('question', data)
+        self.assertIsInstance(data['question'], str)
     unittest.main()
