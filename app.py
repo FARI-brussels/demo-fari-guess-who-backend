@@ -59,6 +59,10 @@ def index():
 def robot_view():
     return render_template('robot_view.html', characters=characters)
 
+@app.route('/robot_view', methods=['POST'])
+def robot_view():
+    return render_template('robot_view.html', characters=characters)
+
 def generate_question(remaining_characters):
     return f"Is your character {remaining_characters[0]['description']}?"
 
