@@ -27,43 +27,88 @@ characters = [
     {"name": "Tina", "description": "Tina has short, curly black hair and dark brown eyes. She wears a yellow t-shirt and blue jeans. She has an energetic personality and loves dancing."}
 ]
 
-chosen_character = random.choice(characters)
-
-remaining_characters = characters.copy()
-
-decision_tree = []
 
 def filter_characters(initial_list, remaining_characters):
     return [character for character in initial_list if any(rc['name'] == character['name'] for rc in remaining_characters)]
 
-def update_decision_tree(question, response):
+def update_decision_tree(decision_tree, question, response, remaining_caracters):
+
     decision_tree.append({
         "question": question,
-        "yes": [char['name'] for char in response],
-        "no": [char['name'] for char in remaining_characters if char not in response]
+        "yes": [char['name'] for char in remaining_caracters if char not in response],
+        "no": [char['name'] for char in response]
     })
+    return decision_tree
+
+
+def initialize_game():
+    chosen_character = random.choice(characters)
+    remaining_characters_player = characters.copy()
+    remaining_characters_robot = characters.copy()
+    decision_tree_player = []
+    decision_tree_robot = []
+    return chosen_character, remaining_characters_player, remaining_characters_robot, decision_tree_player, decision_tree_robot
 
 @app.route('/')
 def index():
+    global chosen_character, remaining_characters_player, remaining_characters_robot, decision_tree_player, decision_tree_robot
+    chosen_character, remaining_characters_player, remaining_characters_robot, decision_tree_player, decision_tree_robot = initialize_game()
     return render_template('index.html', characters=characters)
+
+@app.route('/robot_view', methods=['POST'])
+def robot_view():
+    return render_template('robot_view.html', characters=characters)
+
+def generate_question(remaining_characters):
+    return f"Is your character {remaining_characters[0]['description']}?"
 
 @app.route('/ask', methods=['POST'])
 def ask():
-    global remaining_characters
+    global chosen_character
+    global remaining_characters_player
+    global remaining_characters_robot
+    global decision_tree_player
     data = request.json
     question = data['question']
-    response = openai_api.process_question(question, chosen_character, remaining_characters)
-    print([rc['name'] for rc in response])
-    filtered = filter_characters(characters, response)
-    update_decision_tree(question, filtered)
-    remaining_characters = filtered
-    
-    return jsonify(remaining_characters)
+    remaning_characters, response = openai_api.process_question(question, chosen_character, remaining_characters_player)
+    filtered = filter_characters(characters, remaning_characters)
+    decision_tree_player = update_decision_tree(decision_tree_player, question, filtered, remaining_characters_player)
+    remaining_characters_player = filtered
+    resp = {
+        "response": response,
+        "remaining_characters": remaning_characters,
+        "decision_tree": decision_tree_player,
+        "robot_question": openai_api.generate_question(remaining_characters_robot)
+    }
+    return jsonify(resp)
 
-@app.route('/decision_tree', methods=['GET'])
-def get_decision_tree():
-    print(decision_tree)
-    return jsonify(decision_tree)
+"""
+@app.route('/generate_question', methods=['GET'])
+def generate_question():
+    global remaining_characters_robot
+    question = openai_api.generate_question(remaining_characters_robot)
+    response = {
+        "question": question
+    }
+    return jsonify(response)
+"""
+
+@app.route('/process_answer', methods=['POST'])
+def process_answer():
+    global remaining_characters_robot
+    global decision_tree_robot
+    data = request.json
+    question = data['question']
+    response = data['response']
+    resp = openai_api.process_question_and_response(question, response, remaining_characters_robot)
+    filtered = filter_characters(remaining_characters_robot, resp)
+    decision_tree_robot = update_decision_tree(decision_tree_robot , question, filtered , remaining_characters_robot)
+    response = {
+        "response": resp,
+        "decision_tree": decision_tree_robot
+    }
+    return jsonify({"response": response})
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
