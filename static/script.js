@@ -104,6 +104,9 @@ function createDecisionTree(data) {
 }
 
 function updateRobotView(remainingCharacters) {
+    if (!window.location.pathname.includes('robot_view')) {
+        return;
+    }
     const allCharacters = document.querySelectorAll('.card');
     allCharacters.forEach(card => {
         if (!remainingCharacters.some(character => character.name === card.id)) {

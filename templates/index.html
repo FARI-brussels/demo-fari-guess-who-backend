@@ -20,83 +20,48 @@
         <input type="text" id="question" name="question" placeholder="Ask a question">
         <button type="submit">Ask</button>
     </form>
+    <div id="response"></div>
+    <div id="robot-question"></div>
     <div id="decision-tree"></div>
+    <svg width="960" height="800"></svg>
     <div id="justifications">
         <h2>Justifications</h2>
         <ul id="justification-list"></ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.1.1/d3.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script>
         document.getElementById('question-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const question = document.getElementById('question').value;
-            fetch('/ask', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ question: question })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const allCharacters = document.querySelectorAll('.card');
-                allCharacters.forEach(card => {
-                    if (!data.some(character => character.name === card.id)) {
-                        card.classList.add('faded');
-                    }
-                });
-                updateDecisionTree(data.map(character => character.name));
-            });
+    event.preventDefault();
+    const question = document.getElementById('question').value;
+    fetch('/ask', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question: question })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const allCharacters = document.querySelectorAll('.card');
+        allCharacters.forEach(card => {
+            if (!data["remaining_characters"].some(character => character.name === card.id)) {
+                card.classList.add('faded');
+            }
         });
-
-        function updateDecisionTree(data) {
-            fetch('/decision_tree')
-                .then(response => response.json())
-                .then(treeData => {
-                    const treeContainer = document.getElementById('decision-tree');
-                    treeContainer.innerHTML = '';
-                    const width = 600;
-                    const height = 400;
-                    const svg = d3.select(treeContainer)
-                        .append('svg')
-                        .attr('width', width)
-                        .attr('height', height);
-
-                    const root = d3.hierarchy(treeData, d => d.children);
-                    const treeLayout = d3.tree().size([width, height]);
-                    treeLayout(root);
-
-                    svg.selectAll('line')
-                        .data(root.links())
-                        .enter()
-                        .append('line')
-                        .attr('x1', d => d.source.x)
-                        .attr('y1', d => d.source.y)
-                        .attr('x2', d => d.target.x)
-                        .attr('y2', d => d.target.y)
-                        .attr('stroke', 'black');
-
-                    svg.selectAll('circle')
-                        .data(root.descendants())
-                        .enter()
-                        .append('circle')
-                        .attr('cx', d => d.x)
-                        .attr('cy', d => d.y)
-                        .attr('r', 5)
-                        .attr('fill', 'red');
-
-                    svg.selectAll('text')
-                        .data(root.descendants())
-                        .enter()
-                        .append('text')
-                        .attr('x', d => d.x)
-                        .attr('y', d => d.y)
-                        .attr('dy', -10)
-                        .attr('text-anchor', 'middle')
-                        .text(d => d.data.question || d.data.name);
-                });
-        }
-    </script>
-    </script>
+        console.log(data["decision_tree"]);
+        updateJustifications(data["remaining_characters"]);
+        createDecisionTree(data["decision_tree"]);
+        document.getElementById('response').innerText = `Response: ${data.response}`;
+        document.getElementById('robot-question').innerHTML = `
+            <p>${data.robot_question}</p>
+            <button id="yes-button">Yes</button>
+            <button id="no-button">No</button>
+        `;
+        document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, 'yes'));
+        document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, 'no'));
+    });
+});
+</script>
 </body>
 </html>
