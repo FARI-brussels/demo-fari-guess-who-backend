@@ -8,6 +8,14 @@ import random
 
 app = Flask(__name__)
 
+def initialize_game():
+    chosen_character = random.choice(characters)
+    remaining_characters_player = characters.copy()
+    remaining_characters_robot = characters.copy()
+    decision_tree_player = []
+    decision_tree_robot = []
+    return chosen_character, remaining_characters_player, remaining_characters_robot, decision_tree_player, decision_tree_robot
+
 characters = [
     {"name": "Alexander", "description": "Alexander is a tall man with glasses and a neatly trimmed beard. He has short, brown hair and is often seen wearing a blue suit with a red tie. His eyes are green, and he has a slight dimple on his left cheek when he smiles."},
     {"name": "Beatrice", "description": "Beatrice is a woman with curly red hair that reaches her shoulders. She wears a pair of small, round glasses and has a friendly, warm smile. Her favorite outfit is a yellow dress with floral patterns, and she often accessorizes with a green scarf."},
