@@ -55,13 +55,10 @@ def index():
     chosen_character, remaining_characters_player, remaining_characters_robot, decision_tree_player, decision_tree_robot = initialize_game()
     return render_template('index.html', characters=characters)
 
-@app.route('/robot_view', methods=['POST'])
+@app.route('/robot_view')
 def robot_view():
     return render_template('robot_view.html', characters=characters)
 
-@app.route('/robot_view', methods=['POST'])
-def robot_view():
-    return render_template('robot_view.html', characters=characters)
 
 def generate_question(remaining_characters):
     return f"Is your character {remaining_characters[0]['description']}?"
@@ -108,7 +105,7 @@ def process_answer():
     filtered = filter_characters(remaining_characters_robot, resp)
     decision_tree_robot = update_decision_tree(decision_tree_robot , question, filtered , remaining_characters_robot)
     response = {
-        "response": resp,
+        "remaining_characters": resp,
         "decision_tree": decision_tree_robot
     }
     return jsonify({"response": response})
