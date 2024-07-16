@@ -41,7 +41,11 @@ def update_decision_tree(decision_tree, question, response, remaining_caracters)
     return decision_tree
 
 
-def initialize_game():
+@app.route('/update_robot_view', methods=['POST'])
+def update_robot_view():
+    data = request.json
+    socketio.emit('update_robot_view', data)
+    return jsonify(success=True)
     chosen_character = random.choice(characters)
     remaining_characters_player = characters.copy()
     remaining_characters_robot = characters.copy()
