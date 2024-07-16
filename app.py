@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO, emit
+
+app = Flask(__name__)
+socketio = SocketIO(app)
 import openai_api
 import random
 
