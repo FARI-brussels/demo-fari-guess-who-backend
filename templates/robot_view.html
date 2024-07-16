@@ -17,6 +17,13 @@
         {% endfor %}
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.on('update_robot_view', function(data) {
+            updateRobotView(data.remaining_characters);
+        });
+    </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
     const socket = io();

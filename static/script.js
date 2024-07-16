@@ -103,6 +103,13 @@ function createDecisionTree(data) {
         .text(d => d.data.name);
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    const socket = io();
+    socket.on('update_robot_view', function(data) {
+        updateRobotView(data.remaining_characters);
+    });
+});
+
 function updateRobotView(remainingCharacters) {
     if (!window.location.pathname.includes('robot_view')) {
         return;
