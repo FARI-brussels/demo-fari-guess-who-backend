@@ -2,8 +2,11 @@ import json
 import openai
 from openai import OpenAI, ChatCompletion
 from tenacity import retry, wait_random_exponential, stop_after_attempt 
+
 GPT_MODEL = "gpt-4o"
 client = OpenAI()
+with open("keys.json", "r") as f:
+    openai.api_key = json.load(f)["key"]
 
 @retry(wait=wait_random_exponential(multiplier=1, max=40), stop=stop_after_attempt(3))
 def chat_completion_request(messages, tools=None, tool_choice=None, model=GPT_MODEL):
