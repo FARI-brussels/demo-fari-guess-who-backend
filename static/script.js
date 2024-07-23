@@ -12,7 +12,6 @@ function processAnswer(question, response) {
         // Handle the response from process_answer route
         document.getElementById('robot-question').innerHTML = '';
         console.log(data.response);
-        updateRobotView(data.response.remaining_characters);
     });
 }
 
@@ -101,18 +100,4 @@ function createDecisionTree(data) {
         .attr("x", d => d.children ? -10 : 10)
         .style("text-anchor", d => d.children ? "end" : "start")
         .text(d => d.data.name);
-}
-
-function updateRobotView(remainingCharacters) {
-    if (!window.location.pathname.includes('robot_view')) {
-        return;
-    }
-    const allCharacters = document.querySelectorAll('.card');
-    allCharacters.forEach(card => {
-        if (!remainingCharacters.some(character => character.name === card.id)) {
-            card.classList.add('faded');
-        } else {
-            card.classList.remove('faded');
-        }
-    });
 }

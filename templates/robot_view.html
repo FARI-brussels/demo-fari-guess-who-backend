@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.1.1/d3.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <h1>Robot View</h1>
     <div id="robot-cards">
         {% for character in characters %}
@@ -16,20 +18,25 @@
             </div>
         {% endfor %}
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <div id="decision-tree"></div>
+    <svg width="960" height="800"></svg>
     <script>
-        const socket = io();
-        socket.on('update_robot_view', function(data) {
-            updateRobotView(data.remaining_characters);
-        });
+        const socket = new WebSocket('ws://localhost:6789');
+        
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const allCharacters = document.querySelectorAll('.card');
+            console.log(!data.remaining_characters)
+            allCharacters.forEach(card => {
+                if (!data.remaining_characters.some(character => character.name === card.id)) {
+                    card.classList.add('faded');
+                }
+            });
+            
+            createDecisionTree(data.decision_tree);
+
+        };
+
     </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-<script>
-    const socket = io();
-    socket.on('update_robot_view', function(data) {
-        updateRobotView(data.remaining_characters);
-    });
-</script>
 </body>
 </html>
