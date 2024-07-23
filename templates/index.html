@@ -29,41 +29,7 @@
         <ul id="justification-list"></ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.1.1/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.1.1/d3.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        document.getElementById('question-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const question = document.getElementById('question').value;
-            fetch('/ask', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ question: question })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const allCharacters = document.querySelectorAll('.card');
-                allCharacters.forEach(card => {
-                    if (!data["remaining_characters"].some(character => character.name === card.id)) {
-                        card.classList.add('faded');
-                    }
-                });
-                console.log(data["decision_tree"]);
-                updateJustifications(data["remaining_characters"]);
-                createDecisionTree(data["decision_tree"]);
-                document.getElementById('response').innerText = `Response: ${data.response}`;
-                document.getElementById('robot-question').innerHTML = `
-                    <p>${data.robot_question}</p>
-                    <button id="yes-button">Yes</button>
-                    <button id="no-button">No</button>
-                `;
-                document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, 'yes'));
-                document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, 'no'));
-            });
-        });
-    </script>
     <script>
         document.getElementById('question-form').addEventListener('submit', function(event) {
     event.preventDefault();
