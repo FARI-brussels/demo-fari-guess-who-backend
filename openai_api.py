@@ -1,9 +1,7 @@
 import json
 import openai
 from openai import OpenAI, ChatCompletion
-from tenacity import retry, wait_random_exponential, stop_after_attempt
-from termcolor import colored  
-openai.api_key = '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'
+from tenacity import retry, wait_random_exponential, stop_after_attempt 
 GPT_MODEL = "gpt-4o"
 client = OpenAI()
 
