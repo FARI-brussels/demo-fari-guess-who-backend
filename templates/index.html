@@ -8,22 +8,37 @@
 </head>
 <body>
     <h1>Guess Who Game</h1>
-    <div id="cards">
-        {% for character in characters %}
-            <div class="card" id="{{ character.name }}">
-                <h2>{{ character.name }}</h2>
-                <img src="{{ url_for('static', filename=character.image) }}" alt="{{ character.name }}" class="character-image">
+    <div class="container">
+        <div id="cards-section">
+            <div id="cards">
+                {% for character in characters %}
+                    <div class="card" id="{{ character.name }}">
+                        <h2>{{ character.name }}</h2>
+                        <img src="{{ url_for('static', filename=character.image) }}" alt="{{ character.name }}" class="character-image">
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+            <div id="question-container">
+                <div id="ask-question">
+                    <h2>Ask a Question</h2>
+                    <form id="question-form">
+                        <input type="text" id="question" name="question" placeholder="Ask a question">
+                        <button type="submit">Ask</button>
+                    </form>
+                    <div id="response"></div>
+                </div>
+                <div id="answer-question">
+                    <h2>Answer the Question</h2>
+                    <div id="robot-question"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div id="decision-tree-section">
+            <div id="decision-tree"></div>
+            <svg width="1600" height="2000"></svg>
+        </div>
     </div>
-    <form id="question-form">
-        <input type="text" id="question" name="question" placeholder="Ask a question">
-        <button type="submit">Ask</button>
-    </form>
-    <div id="response"></div>
-    <div id="robot-question"></div>
-    <div id="decision-tree"></div>
-    <svg width="960" height="800"></svg>
     <div id="justifications">
         <h2>Justifications</h2>
         <ul id="justification-list"></ul>
@@ -32,36 +47,36 @@
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script>
         document.getElementById('question-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const question = document.getElementById('question').value;
-    fetch('/ask', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ question: question })
-    })
-    .then(response => response.json())
-    .then(data => {
-        const allCharacters = document.querySelectorAll('.card');
-        allCharacters.forEach(card => {
-            if (!data["remaining_characters"].some(character => character.name === card.id)) {
-                card.classList.add('faded');
-            }
+            event.preventDefault();
+            const question = document.getElementById('question').value;
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const allCharacters = document.querySelectorAll('.card');
+                allCharacters.forEach(card => {
+                    if (!data["remaining_characters"].some(character => character.name === card.id)) {
+                        card.classList.add('faded');
+                    }
+                });
+                console.log(data["decision_tree"]);
+                updateJustifications(data["remaining_characters"]);
+                createDecisionTree(data["decision_tree"]);
+                document.getElementById('response').innerText = `Response: ${data.response}`;
+                document.getElementById('robot-question').innerHTML = `
+                    <p>${data.robot_question}</p>
+                    <button id="yes-button">Yes</button>
+                    <button id="no-button">No</button>
+                `;
+                document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, 'yes'));
+                document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, 'no'));
+            });
         });
-        console.log(data["decision_tree"]);
-        updateJustifications(data["remaining_characters"]);
-        createDecisionTree(data["decision_tree"]);
-        document.getElementById('response').innerText = `Response: ${data.response}`;
-        document.getElementById('robot-question').innerHTML = `
-            <p>${data.robot_question}</p>
-            <button id="yes-button">Yes</button>
-            <button id="no-button">No</button>
-        `;
-        document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, 'yes'));
-        document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, 'no'));
-    });
-});
-</script>
+    </script>
 </body>
 </html>

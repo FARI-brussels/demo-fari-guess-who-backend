@@ -25,6 +25,7 @@ function updateJustifications(data) {
     });
 }
 
+
 function createDecisionTree(data) {
     d3.select("svg").selectAll("*").remove();
     const treeData = {
@@ -53,11 +54,11 @@ function createDecisionTree(data) {
                 name: question.question + " (" + names.length + ")",
                 children: [
                     {
-                        name: 'no (' + yesNames.length + ')',
+                        name: 'yes (' + yesNames.length + ')',
                         children: buildTree(data, yesNames, index + 1)
                     },
                     {
-                        name: 'yes (' + noNames.length + ')',
+                        name: 'no (' + noNames.length + ')',
                         children: buildTree(data, noNames, index + 1)
                     }
                 ]
@@ -84,7 +85,10 @@ function createDecisionTree(data) {
             C${d.x},${(d.y + d.parent.y) / 2}
              ${d.parent.x},${(d.y + d.parent.y) / 2}
              ${d.parent.x},${d.parent.y}
-        `);
+        `)
+        .style("fill", "none") // Ensure no fill
+        .style("stroke", "#ccc") // Stroke color for the lines
+        .style("stroke-width", "2px"); // Stroke width for the lines
 
     const node = g.selectAll(".node")
         .data(root.descendants())
