@@ -21,11 +21,12 @@ def initialize_game():
 def filter_characters(initial_list, remaining_characters):
     return [character for character in initial_list if any(rc['name'] == character['name'] for rc in remaining_characters)]
 
-def update_decision_tree(decision_tree, question, response, remaining_characters):
+def update_decision_tree(decision_tree, question, answer, filtered, remaining_characters):
     decision_tree.append({
         "question": question,
-        "yes": [char['name'] for char in remaining_characters if char not in response],
-        "no": [char['name'] for char in response]
+        "response": answer,
+        "yes": [char['name'] for char in remaining_characters if char not in filtered],
+        "no": [char['name'] for char in filtered]
     })
     return decision_tree
 
@@ -39,10 +40,6 @@ def index():
 def robot_view():
     return render_template('robot_view.html', characters=characters)
 
-@app.route('/update_robot_view', methods=['POST'])
-def update_robot_view():
-    data = request.json
-    return jsonify(success=True)
 
 @app.route('/ask', methods=['POST'])
 def ask():
@@ -52,15 +49,15 @@ def ask():
     global decision_tree_player
     data = request.json
     question = data['question']
-    remaining_characters, response = openai_api.process_question(question, chosen_character, remaining_characters_player)
+    remaining_characters, answer = openai_api.process_question(question, chosen_character, remaining_characters_player)
     filtered = filter_characters(characters, remaining_characters)
-    decision_tree_player = update_decision_tree(decision_tree_player, question, filtered, remaining_characters_player)
+    decision_tree_player = update_decision_tree(decision_tree_player, question, answer, filtered, remaining_characters_player)
     remaining_characters_player = filtered
     resp = {
-        "response": response,
+        "response": answer,
         "remaining_characters": remaining_characters,
         "decision_tree": decision_tree_player,
-        "robot_question": openai_api.generate_question(remaining_characters_robot)
+        "robot_question": openai_api.generate_question(remaining_characters_robot, [item['question'] for item in decision_tree_robot])
     }
     return jsonify(resp)
 
@@ -70,10 +67,10 @@ def process_answer():
     global decision_tree_robot
     data = request.json
     question = data['question']
-    response = data['response']
-    remaining_characters, _ = openai_api.process_question(question, response, remaining_characters_robot)
+    answer = data['response']
+    remaining_characters, _ = openai_api.process_question(question, answer, remaining_characters_robot)
     filtered = filter_characters(remaining_characters_robot, remaining_characters)
-    decision_tree_robot = update_decision_tree(decision_tree_robot, question, filtered, remaining_characters_robot)
+    decision_tree_robot = update_decision_tree(decision_tree_robot, question, answer, filtered, remaining_characters_robot)
     
     remaining_characters_robot = filtered
     

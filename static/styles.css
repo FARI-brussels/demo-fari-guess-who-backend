@@ -2,27 +2,68 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#cards-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#cards {
+    border: 2px solid orange;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .card {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
     width: 200px;
-    display: inline-block;
-    vertical-align: top;
     text-align: center;
 }
 
 .card.faded {
     opacity: 0.5;
+    transition: opacity 0.5s;
 }
+
 .character-image {
     width: 100%;
     height: auto;
     border-radius: 5px;
 }
 
-.card.faded {
-    opacity: 0.5;
-    transition: opacity 0.5s;
+#question-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+#ask-question, #answer-question {
+    flex: 1;
+    margin-right: 10px;
+}
+
+#question-form input {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#question-form button {
+    padding: 5px;
+}
+
+#decision-tree-section {
+    flex: 1.5;
+    display: flex
 }

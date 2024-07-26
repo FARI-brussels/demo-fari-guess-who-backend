@@ -50,6 +50,7 @@ function createDecisionTree(data) {
         }
         const question = data[index];
         const yesNames = names.filter(name => question.yes.includes(name));
+        console.log(yesNames);
         const noNames = names.filter(name => question.no.includes(name));
         return [
             {

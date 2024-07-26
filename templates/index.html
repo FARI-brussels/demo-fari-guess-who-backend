@@ -80,10 +80,7 @@
                 `;
                 document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, 'yes'));
                 document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, 'no'));
-            }).finally(() => {
-                askButton.disabled = false;
-                questionInput.disabled = false;
-            });
+            })
         });
     </script>
 </body>

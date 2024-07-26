@@ -47,11 +47,12 @@ def process_question_and_response(question, response, characters):
     return remaining_characters
 
 
-def generate_question(remaining_characters):
+def generate_question(remaining_characters, previous_questions):
     messages = [
-        {"role": "system", "content": "We are playing guess who, based on the list of remaining characters that I will give you, can you create a question that can be answer by yes or no and split the remaining character in two equal groups. Return a JSON with the generated question."},
-        {"role": "user", "content": f"remaining_characters: {remaining_characters}"},
+        {"role": "system", "content": "We are playing guess who, based on the list of remaining characters that I will give you, can you create a question that can be answer by yes or no and split the remaining character in two equal groups. Please don't ask a question related to the previous questions. Return a JSON with the generated question. example : {'question' : 'is it a man ?'}"},
+        {"role": "user", "content": f"remaining_characters: {remaining_characters}, previous questions :{previous_questions}"},
     ]
+    
     response = chat_completion_request(messages)
     question = json.loads(response.choices[0].message.content)["question"]
     return question
