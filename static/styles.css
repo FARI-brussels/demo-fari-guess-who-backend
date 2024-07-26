@@ -16,7 +16,13 @@ body {
 .card.faded {
     opacity: 0.5;
 }
-.faded {
+.character-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.card.faded {
     opacity: 0.5;
     transition: opacity 0.5s;
 }
