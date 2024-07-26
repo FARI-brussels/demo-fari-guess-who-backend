@@ -14,6 +14,7 @@ function processAnswer(question, response) {
         console.log(data.response);
         document.getElementById('question').disabled = false;
         document.getElementById('ask-button').disabled = false;
+        document.getElementById('question').value = '';
     });
 }
 

@@ -22,11 +22,15 @@ def filter_characters(initial_list, remaining_characters):
     return [character for character in initial_list if any(rc['name'] == character['name'] for rc in remaining_characters)]
 
 def update_decision_tree(decision_tree, question, answer, filtered, remaining_characters):
+    if answer in "no":
+        not_answer = "yes"
+    else:
+        not_answer = "no"
     decision_tree.append({
         "question": question,
         "response": answer,
-        "yes": [char['name'] for char in remaining_characters if char not in filtered],
-        "no": [char['name'] for char in filtered]
+        not_answer: [char['name'] for char in remaining_characters if char not in filtered],
+        answer: [char['name'] for char in filtered]
     })
     return decision_tree
 
