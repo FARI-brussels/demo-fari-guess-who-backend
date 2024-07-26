@@ -12,6 +12,8 @@ function processAnswer(question, response) {
         // Handle the response from process_answer route
         document.getElementById('robot-question').innerHTML = '';
         console.log(data.response);
+        document.getElementById('question').disabled = false;
+        document.getElementById('ask-button').disabled = false;
     });
 }
 

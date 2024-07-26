@@ -23,7 +23,7 @@
                     <h2>Ask a Question</h2>
                     <form id="question-form">
                         <input type="text" id="question" name="question" placeholder="Ask a question">
-                        <button type="submit">Ask</button>
+                        <button type="submit" id="ask-button">Ask</button>
                     </form>
                     <div id="response"></div>
                 </div>
@@ -49,6 +49,10 @@
         document.getElementById('question-form').addEventListener('submit', function(event) {
             event.preventDefault();
             const question = document.getElementById('question').value;
+            const askButton = document.getElementById('ask-button');
+            askButton.disabled = true;
+            questionInput.disabled = true;
+
             fetch('/ask', {
                 method: 'POST',
                 headers: {
@@ -75,6 +79,9 @@
                 `;
                 document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, 'yes'));
                 document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, 'no'));
+            }).finally(() => {
+                askButton.disabled = false;
+                questionInput.disabled = false;
             });
         });
     </script>
