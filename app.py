@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import random
 import json
 import openai_api
+import os
 
 
 app = Flask(__name__)
@@ -11,11 +12,15 @@ with open('characters.json', 'r') as f:
     characters = json.load(f)
 
 def initialize_game():
+
     chosen_character = random.choice(characters)
     remaining_characters_player = characters.copy()
     remaining_characters_robot = characters.copy()
     decision_tree_player = []
     decision_tree_robot = []
+    if os.path.exists("/tmp/robot_state.json"):
+        # Delete the file
+        os.remove("/tmp/robot_state.json")
     return chosen_character, remaining_characters_player, remaining_characters_robot, decision_tree_player, decision_tree_robot
 
 def filter_characters(initial_list, remaining_characters):

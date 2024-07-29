@@ -9,10 +9,11 @@ body {
 }
 
 #cards-section {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 1600px;
 }
 
 #cards {
@@ -27,7 +28,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
-    width: 200px;
+    width: 180px;
     text-align: center;
 }
 
@@ -64,6 +65,8 @@ body {
 }
 
 #decision-tree-section {
-    flex: 1.5;
-    display: flex
+    flex: 1;
+    display: flex;
+    width: 700px;
 }
+
