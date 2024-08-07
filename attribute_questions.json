@@ -1,0 +1,10 @@
+[
+    {"value": "sex", "question": "Is she/he a _ ?"},
+    {"value": "hair_color", "question": "Does she/he have _ hair?"},
+    {"value": "hair_length", "question": "Does she/he have _ hair?"},
+    {"value": "has_glasses", "question": "Does she/he wear glasses?"},
+    {"value": "has_shirt", "question": "Is she/he wearing a shirt?"},
+    {"value": "hair_type", "question": "Does she/he have _ hair?"},
+    {"value": "has_jewelery", "question": "Does she/he have jewelery?"},
+    {"value": "has_arm_crossed", "question": "Does she/he have the arm crossed?"}
+]

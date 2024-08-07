@@ -1,10 +1,10 @@
-function processAnswer(question, response) {
+function processAnswer(question, attribute, value,  max_gain, response) {
     fetch('/process_answer', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ question: question, response: response })
+        body: JSON.stringify({ question: question, attribute: attribute, value:value, max_gain: max_gain, response: response })
     })
     .then(response => response.json())
     .then(data => {
@@ -32,7 +32,7 @@ function updateJustifications(data) {
 function createDecisionTree(data) {
     d3.select("svg").selectAll("*").remove();
     const treeData = {
-        name: data[0].question + " (" + (data[0].yes.length + data[0].no.length) + ")",
+        name: data[0].question + " (" + (data[0].yes.length + data[0].no.length) + ")" + " (" + data[0].information_gain.toFixed(3) + ")",
         children: [
             {
                 name: 'yes (' + data[0].yes.length + ')',
@@ -55,7 +55,7 @@ function createDecisionTree(data) {
         const noNames = names.filter(name => question.no.includes(name));
         return [
             {
-                name: question.question + " (" + names.length + ")",
+                name: question.question + " (" + names.length + ")" + question.information_gain.toFixed(3) ,
                 children: [
                     {
                         name: 'yes (' + yesNames.length + ')',

@@ -69,15 +69,16 @@
                 });
                 console.log(data["decision_tree"]);
                 updateJustifications(data["remaining_characters"]);
-                createDecisionTree(data["decision_tree"]);
+                console.log(data["max_gain"]);
+                createDecisionTree(data["decision_tree"], data["max_gain"]);
                 document.getElementById('response').innerText = `Response: ${data.response}`;
                 document.getElementById('robot-question').innerHTML = `
                     <p>${data.robot_question}</p>
                     <button id="yes-button">Yes</button>
                     <button id="no-button">No</button>
                 `;
-                document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, 'yes'));
-                document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, 'no'));
+                document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, data.attribute, data.value, data.max_gain, 'yes', ));
+                document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, data.attribute, data.value, data.max_gain, 'no'));
             })
         });
     </script>
