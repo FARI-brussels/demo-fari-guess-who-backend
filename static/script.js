@@ -109,3 +109,39 @@ function createDecisionTree(data) {
         .style("text-anchor", d => d.children ? "end" : "start")
         .text(d => d.data.name);
 }
+document.getElementById('question-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const question = document.getElementById('question').value;
+    const askButton = document.getElementById('ask-button');
+    const questionInput = document.getElementById('question');
+    askButton.disabled = true;
+    questionInput.disabled = true;
+    fetch('/ask', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question: question })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const allCharacters = document.querySelectorAll('.card');
+        allCharacters.forEach(card => {
+            if (!data["remaining_characters"].some(character => character.name === card.id)) {
+                card.classList.add('faded');
+            }
+        });
+        console.log(data["decision_tree"]);
+        updateJustifications(data["remaining_characters"]);
+        console.log(data["max_gain"]);
+        createDecisionTree(data["decision_tree"], data["max_gain"]);
+        document.getElementById('response').innerText = `Response: ${data.response}`;
+        document.getElementById('robot-question').innerHTML = `
+            <p>${data.robot_question}</p>
+            <button id="yes-button">Yes</button>
+            <button id="no-button">No</button>
+        `;
+        document.getElementById('yes-button').addEventListener('click', () => processAnswer(data.robot_question, data.attribute, data.value, data.max_gain, 'yes', ));
+        document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, data.attribute, data.value, data.max_gain, 'no'));
+    })
+});
