@@ -21,4 +21,6 @@ class TestApp(unittest.TestCase):
         data = response.get_json()
         self.assertIn('question', data)
         self.assertIsInstance(data['question'], str)
+        
+if __name__ == '__main__':
     unittest.main()
