@@ -20,14 +20,16 @@ class TestOpenAIAPI(unittest.TestCase):
         ]
 
         question = "Is the character a man?"
-        result = openai_api.process_question(question, characters)
+        chosen_character = "Alexander"
+        result, response = openai_api.process_question(question, chosen_character, characters)
         expected_result = [
-            {"name": "Alexander", "description": "Description of Alexander"},
-            {"name": "Beatrice", "description": "Description of Beatrice"},
-            {"name": "Carlos", "description": "Description of Carlos"}
+            {"name": "Alexander", "justification": "Alexander matches ... because..."},
+            {"name": "Beatrice", "justification": "Beatrice seems to be ... because ..."},
+            {"name": "Carlos", "justification": "Carlos matches ... because..."}
         ]
 
         self.assertEqual(result, expected_result)
+        self.assertEqual(response, "yes")
 
 if __name__ == '__main__':
     unittest.main()
