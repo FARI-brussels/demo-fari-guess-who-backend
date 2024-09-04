@@ -21,24 +21,24 @@ This project is a Flask application that interacts with OpenAI's API to generate
     pip install -r requirements.txt
     ```
 
-4. Set your OpenAI API key in the `openai_api.py` file:
+4. Create a keys.json file and add your openai api key : 
     ```python
-    openai.api_key = 'your_openai_api_key'
+    {"key" : "sk-proj-mykey"}
     ```
 
 ## Running the Application
-To run the Flask application, use the following command:
+Open a terminal and launch the Flask application, use the following command:
 ```bash
-flask run
+python app.py
 ```
 
-## Running the Tests
-To run the tests, use the following command:
+And go to http://127.0.0.1:5000 for the player view and http://127.0.0.1:5000/robot_view for the robot view
+
+Open another terminal and use the following command to start the websocket that update the robot screen. 
 ```bash
-python -m unittest discover
+python websocket_server.py
 ```
 
-This will discover and run all the tests in the `test_app.py` file.
 
 ## License
 This project is licensed under the MIT License.
