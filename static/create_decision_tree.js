@@ -1,5 +1,10 @@
+/**
+ * Function to create a decision tree visualization using D3.js
+ * @param {Array} data - The decision tree data
+ */
 function createDecisionTree(data) {
     d3.select("svg").selectAll("*").remove();
+    // Prepare the tree data structure
     const treeData = {
         name: data[0].question + " (" + (data[0].yes.length + data[0].no.length) + ")" + " (" + data[0].information_gain.toFixed(3) + ")",
         children: [
@@ -14,6 +19,13 @@ function createDecisionTree(data) {
         ]
     };
 
+    /**
+     * Recursive function to build the tree structure
+     * @param {Array} data - The decision tree data
+     * @param {Array} names - The names of the characters
+     * @param {number} index - The current index in the data array
+     * @returns {Array} - The tree structure
+     */
     function buildTree(data, names, index) {
         if (index >= data.length || names.length === 0) {
             return names.map(name => ({ name: name + ' (1)' }));
@@ -38,16 +50,19 @@ function createDecisionTree(data) {
         ];
     }
 
+    // Set up the SVG canvas
     const svg = d3.select("svg"),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
         g = svg.append("g").attr("transform", "translate(40,40)");
 
+    // Create a D3 tree layout
     const tree = d3.tree().size([width - 160, height - 160]);
     const root = d3.hierarchy(treeData);
 
     tree(root);
 
+    // Draw the links (edges) between nodes
     const link = g.selectAll(".link")
         .data(root.descendants().slice(1))
         .enter().append("path")
@@ -62,15 +77,18 @@ function createDecisionTree(data) {
         .style("stroke", "#ccc")
         .style("stroke-width", "2px");
 
+    // Draw the nodes
     const node = g.selectAll(".node")
         .data(root.descendants())
         .enter().append("g")
         .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
         .attr("transform", d => `translate(${d.x},${d.y})`);
 
+    // Append circles to the nodes
     node.append("circle")
         .attr("r", 5);
 
+    // Append text labels to the nodes
     node.append("text")
         .attr("dy", 3)
         .attr("x", d => d.children ? 10 : 10)  // Position to the right for all nodes

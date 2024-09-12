@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container">
+        <!-- Section for displaying character cards -->
         <div id="cards-section">
             <div id="cards">
                 {% for character in characters %}
@@ -17,6 +18,7 @@
                     </div>
                 {% endfor %}
             </div>
+            <!-- Section for asking and answering questions -->
             <div id="question-container">
                 <div id="ask-question">
                     <h2>Ask a Question</h2>
@@ -31,13 +33,14 @@
                     <div id="robot-question"></div>
                 </div>
             </div>
-            
         </div>
+        <!-- Section for displaying the decision tree -->
         <div id="decision-tree-sectio">
             <div id="decision-tree"></div>
             <svg width="1300" height="1000"></svg>
         </div>
     </div>
+    <!-- Section for displaying justifications -->
     <div id="justifications">
         <h2>Justifications</h2>
         <ul id="justification-list"></ul>
@@ -81,36 +84,38 @@
                 document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, data.attribute, data.value, data.max_gain, 'no'));
             })
         });
-    function processAnswer(robot_question, attribute, value,  max_gain, response) {
-        fetch('/process_answer', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ robot_question: robot_question, attribute: attribute, value:value, max_gain: max_gain, response: response })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Handle the response from process_answer route
-            document.getElementById('robot-question').innerHTML = '';
-            console.log(data.response);
-            document.getElementById('question').disabled = false;
-            document.getElementById('ask-button').disabled = false;
-            document.getElementById('question').value = '';
-        });
+
+        // Function to process the player's answer to the robot's question
+        function processAnswer(robot_question, attribute, value,  max_gain, response) {
+            fetch('/process_answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ robot_question: robot_question, attribute: attribute, value:value, max_gain: max_gain, response: response })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Handle the response from process_answer route
+                document.getElementById('robot-question').innerHTML = '';
+                console.log(data.response);
+                document.getElementById('question').disabled = false;
+                document.getElementById('ask-button').disabled = false;
+                document.getElementById('question').value = '';
+            });
         }
 
-    function updateJustifications(data) {
-        const justificationList = document.getElementById('justification-list');
-        justificationList.innerHTML = '';
-        data.forEach(character => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${character.name}: ${character.justification}`;
-            justificationList.appendChild(listItem);
-        });
-    }
-
+        // Function to update the justifications section
+        function updateJustifications(data) {
+            const justificationList = document.getElementById('justification-list');
+            justificationList.innerHTML = '';
+            data.forEach(character => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${character.name}: ${character.justification}`;
+                justificationList.appendChild(listItem);
+            });
+        }
     </script>
 </body>
 </html>
