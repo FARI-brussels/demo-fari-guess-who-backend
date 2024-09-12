@@ -65,7 +65,8 @@ def ask():
     remaining_characters, answer = openai_api.process_question(question, chosen_character, remaining_characters_player)
     filtered = filter_characters(characters, remaining_characters)
     information_gain = evaluate_information_gain.calculate_weighted_information_gain(remaining_characters_player, len([char['name'] for char in remaining_characters if char not in filtered]),len([char['name'] for char in filtered]) )
-    decision_tree_player = update_decision_tree(decision_tree_player, question, answer, information_gain, filtered, remaining_characters_player)
+    _, __, ___, max_information_gain = evaluate_information_gain.generate_best_question(remaining_characters_player, attribute_questions)
+    decision_tree_player = update_decision_tree(decision_tree_player, question, answer, information_gain , filtered, remaining_characters_player)
     remaining_characters_player = filtered
     robot_question, best_attribute, best_value, max_gain = evaluate_information_gain.generate_best_question(remaining_characters_robot, attribute_questions)
     resp = {
@@ -87,15 +88,14 @@ def process_answer():
     attribute = data['attribute']
     value = data['value']
     answer = data['response']
-    question = data['question']
+    question = data['robot_question']
     information_gain = data['max_gain']
     remaining_characters = evaluate_information_gain.process_question(attribute, value, answer, remaining_characters_robot)
     filtered = filter_characters(remaining_characters_robot, remaining_characters)
     decision_tree_robot = update_decision_tree(decision_tree_robot, question, answer, information_gain, filtered, remaining_characters_robot)
     remaining_characters_robot = filtered
-    print(decision_tree_robot)
     # Save the remaining characters and decision tree to a JSON file
-    with open('/tmp/robot_state.json', 'w') as f:
+    with open('robot_state.json', 'w') as f:
         json.dump({
             "remaining_characters": remaining_characters_robot,
             "decision_tree": decision_tree_robot, 

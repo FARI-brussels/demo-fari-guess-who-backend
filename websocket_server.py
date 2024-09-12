@@ -5,7 +5,7 @@ import websockets
 async def send_json_data(websocket, path):
     while True:
         try:
-            with open('/tmp/robot_state.json', 'r') as f:
+            with open('robot_state.json', 'r') as f:
                 data = json.load(f)
                 await websocket.send(json.dumps(data))
             await asyncio.sleep(0.5)

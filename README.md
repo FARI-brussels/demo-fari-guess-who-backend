@@ -85,12 +85,11 @@ python websocket_server.py
 
 
 ## Html and Javascript code
-## HTML and JavaScript Code
 
 ### HTML Files
 
 #### `templates/index.html`
-This file contains the main HTML structure for the game interface. It includes sections for displaying character cards, asking and answering questions, and visualizing the decision tree. The file also includes embedded JavaScript for handling form submissions and updating the UI based on responses from the server.
+This file contains the main HTML structure for the game interface. It includes sections for displaying character cards, asking and answering questions, and visualizing the decision tree and justifications. The file also includes embedded JavaScript for handling form submissions and updating the UI based on responses from the server.
 
 #### `templates/robot_view.html`
 This file contains the HTML structure for the robot's view of the game. It displays the character cards and the decision tree. It also includes embedded JavaScript for handling WebSocket messages to update the UI in real-time.
