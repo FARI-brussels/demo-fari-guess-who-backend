@@ -2,6 +2,7 @@
 
 ## Description
 This project is a Flask application that interacts with OpenAI's API to generate and process questions based on a set of characters.
+The characters are described in characters.json and the questions and attributes used by the AI when playing are described in attribute_questions.json. You can add and remove player by modifying character.json 
 
 ## Setup
 1. Clone the repository:
@@ -39,9 +40,6 @@ Open another terminal and use the following command to start the websocket that 
 python websocket_server.py
 ```
 
-
-## License
-This project is licensed under the MIT License.
 ## API Documentation
 
 ### Endpoints
@@ -55,17 +53,18 @@ This project is licensed under the MIT License.
 - **Response**: HTML content of the robot view page.
 
 #### `POST /ask`
-- **Description**: Processes a question asked by the player and updates the game state.
+- **Description**: Processes a question asked by the player and updates the game state. It returns 
 - **Request Body**:
   - `question` (string): The question asked by the player.
 - **Response**: JSON object containing:
   - `response` (string): The answer to the question.
   - `remaining_characters` (list): List of remaining characters.
-  - `decision_tree` (list): The decision tree of the player.
-  - `robot_question` (string): The question generated for the robot.
+  - `decision_tree` (list): The current decision tree of the player that containing all the question asked in the game, the answer, and how each question split the set of characters
+  - `robot_question` (string): The question that the robot ask in turn.
   - `attribute` (string): The attribute related to the robot's question.
   - `value` (string): The value related to the robot's question.
-  - `max_gain` (float): The maximum information gain.
+  - `max_gain` (float): The maximum information gain of the robot's question
+
 
 #### `POST /process_answer`
 - **Description**: Processes the player's answer to the robot's question and updates the game state.
@@ -73,9 +72,20 @@ This project is licensed under the MIT License.
   - `attribute` (string): The attribute related to the robot's question.
   - `value` (string): The value related to the robot's question.
   - `response` (string): The player's answer to the robot's question.
-  - `question` (string): The robot's question.
+  - `robot_question` (string): The robot's question.
   - `max_gain` (float): The maximum information gain.
+  
 - **Response**: JSON object containing:
   - `response` (object): An object containing:
     - `remaining_characters` (list): List of remaining characters for the robot.
     - `decision_tree` (list): The decision tree of the robot.
+
+
+## Python code
+
+
+## Html and Javascript code
+The h
+
+## License
+This project is licensed under the MIT License.

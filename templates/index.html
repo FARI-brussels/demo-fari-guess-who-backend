@@ -43,7 +43,7 @@
         <ul id="justification-list"></ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.1.1/d3.min.js"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='create_decision_tree.js') }}"></script>
     <script>
         document.getElementById('question-form').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -81,6 +81,36 @@
                 document.getElementById('no-button').addEventListener('click', () => processAnswer(data.robot_question, data.attribute, data.value, data.max_gain, 'no'));
             })
         });
+    function processAnswer(robot_question, attribute, value,  max_gain, response) {
+        fetch('/process_answer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ robot_question: robot_question, attribute: attribute, value:value, max_gain: max_gain, response: response })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Handle the response from process_answer route
+            document.getElementById('robot-question').innerHTML = '';
+            console.log(data.response);
+            document.getElementById('question').disabled = false;
+            document.getElementById('ask-button').disabled = false;
+            document.getElementById('question').value = '';
+        });
+        }
+
+    function updateJustifications(data) {
+        const justificationList = document.getElementById('justification-list');
+        justificationList.innerHTML = '';
+        data.forEach(character => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${character.name}: ${character.justification}`;
+            justificationList.appendChild(listItem);
+        });
+    }
+
     </script>
 </body>
 </html>
