@@ -116,58 +116,7 @@
         "has_jewelery": true, 
         "has_arm_crossed": true
     },
-    {
-        "name": "Karl Philip",
-        "description": "Karl-Philip has medium-length, slightly tousled brown hair that gives him a relaxed yet professional look. He has a light stubble that adds a touch of ruggedness to his appearance. Karl-Philip is dressed in a dark blazer over a light-colored shirt, which is open at the collar, adding to his casual yet sophisticated style. His expression is friendly and approachable, with a slight smile that conveys warmth and confidence. The black-and-white setting of the photo emphasizes his features and attire, creating a timeless and classic impression. The background appears to be an indoor setting, possibly a professional or event space, which adds to the overall professional context of his appearance.",
-        "image": "images/karlphilip.jpeg",
-        "sex": "male",
-        "hair_color": "brown",
-        "hair_length": "medium-length",
-        "has_glasses": false,
-        "has_shirt": true,
-        "hair_type": "slightly tousled",
-        "has_jewelery": false, 
-        "has_arm_crossed": false
-    },
-    {
-        "name": "Kenneth",
-        "description": "Kenneth has short, light brown hair with a neat, slightly tousled style that frames his face. He wears round, brown-framed glasses that give him an intellectual and approachable look. Kenneth is dressed in a brown sweater with a subtle, textured pattern, which provides a casual yet stylish appearance. He has a small, neatly trimmed goatee and mustache but no beard. His expression is friendly and confident, with a slight smile that conveys warmth and approachability. He stands with his arms crossed, exuding confidence and ease. The solid blue background highlights his features and attire, creating a professional and polished impression.",
-        "image": "images/kenneth.jpg",
-        "sex": "male",
-        "hair_color": "light brown",
-        "hair_length": "short",
-        "has_glasses": true,
-        "has_shirt": false,
-        "hair_type": "slightly tousled",
-        "has_jewelery": false, 
-        "has_arm_crossed": true
-    },
-    {
-        "name": "Laura",
-        "description": "Laura has long, straight brown hair that falls neatly past her shoulders, giving her a sleek and polished look. She wears a pair of small, gold hoop earrings that add a touch of elegance to her appearance. Laura is dressed in a casual yet professional outfit, consisting of a dark green top under a black jacket. Her smile is warm and inviting, which, combined with her relaxed posture, conveys a friendly and approachable demeanor. The solid blue background enhances the focus on her, providing a clean and professional backdrop that highlights her features effectively.",
-        "image": "images/laura.jpg",
-        "sex": "female",
-        "hair_color": "brown",
-        "hair_length": "long",
-        "has_glasses": false,
-        "has_shirt": false,
-        "hair_type": "straight",
-        "has_jewelery": true, 
-        "has_arm_crossed": false
-    },
-    {
-        "name": "Laurence",
-        "description": "Laurence has shoulder-length, straight hair that is dark blonde with subtle highlights, giving her a warm and approachable look. She is wearing a soft, light green cardigan that adds a touch of coziness to her appearance. Underneath the cardigan, she wears a simple top, creating a casual yet polished outfit. Laurence accessorizes with a delicate necklace featuring a small pendant, adding a hint of elegance. Her expression is friendly and relaxed, with a gentle smile that enhances her approachable demeanor. The solid blue background provides a clean and professional contrast, making her stand out effectively.",
-        "image": "images/laurence.jpg",
-        "sex": "female",
-        "hair_color": "blonde",
-        "hair_length": "shoulder-length",
-        "has_glasses": false,
-        "has_shirt": false,
-        "hair_type": "straight",
-        "has_jewelery": true,
-        "has_arm_crossed": false
-    },
+
     {
         "name": "Lea",
         "description": "Lea has shoulder-length, wavy black hair that frames her face beautifully. Her hair has a natural, tousled look, giving her a relaxed and approachable demeanor. She is dressed in a black sweater with white vertical stripes, which adds a touch of elegance and sophistication to her outfit. Lea's smile is warm and welcoming, and her slightly tilted pose with arms crossed adds an element of confidence and ease. The solid blue background highlights her features and attire, creating a professional and polished appearance.",
