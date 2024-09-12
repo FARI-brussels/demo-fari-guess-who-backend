@@ -5,16 +5,17 @@ import openai_api
 import os
 import evaluate_information_gain
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
+# Load characters and attribute questions from JSON files
 with open('characters.json', 'r') as f:
     characters = json.load(f)
 
 with open('attribute_questions.json', 'r') as f:
     attribute_questions = json.load(f)
 
+# Function to initialize the game state
 def initialize_game():
     chosen_character = random.choice(characters)
     remaining_characters_player = characters.copy()
@@ -26,9 +27,11 @@ def initialize_game():
         os.remove("/tmp/robot_state.json")
     return chosen_character, remaining_characters_player, remaining_characters_robot, decision_tree_player, decision_tree_robot
 
+# Function to filter characters based on the remaining characters
 def filter_characters(initial_list, remaining_characters):
     return [character for character in initial_list if any(rc['name'] == character['name'] for rc in remaining_characters)]
 
+# Function to update the decision tree with the latest question and answer
 def update_decision_tree(decision_tree, question, answer, information_gain, filtered, remaining_characters):
     if answer == "no":
         not_answer = "yes"
@@ -52,7 +55,6 @@ def index():
 @app.route('/robot_view')
 def robot_view():
     return render_template('robot_view.html', characters=characters)
-
 
 @app.route('/ask', methods=['POST'])
 def ask():

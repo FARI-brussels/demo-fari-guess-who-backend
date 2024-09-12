@@ -81,7 +81,19 @@ python websocket_server.py
     - `decision_tree` (list): The decision tree of the robot.
 
 
-## Python code
+## Python Files
+
+### `openai_api.py`
+This file contains functions to interact with the OpenAI API. It includes functions to send chat completion requests and process questions.
+
+### `evaluate_information_gain.py`
+This file contains functions to calculate information gain and entropy. It includes functions to evaluate the best question to ask based on the information gain.
+
+### `app.py`
+This file contains the main Flask application. It includes routes to render the index and robot view pages, and to process questions and answers.
+
+### `websocket_server.py`
+This file contains the WebSocket server to send real-time updates to the robot view. It reads the robot state from a JSON file and sends it to the client.
 
 
 ## Html and Javascript code
