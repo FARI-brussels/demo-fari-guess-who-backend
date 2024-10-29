@@ -28,13 +28,11 @@ def chat_completion_request(messages, tools=None, tool_choice=None, model=GPT_MO
 
 def process_question(question, chosen_character, characters):
     messages = [
-        {"role": "system", "content": "Eliminate characters based on a question and the character to guess. If the character to guess corresponds to a yes of the question, return the players that also correspond to yes and same with no. Return a JSON with the response of the question and a list of dictionaries containing the name of the remaining characters and a justification for why they were kept. Please don't mention who is the character to guess in the justification. Example: 'response' : 'yes', 'remaining_characters': [{'name': 'tina', 'justification': 'Tina matches is ... because...'}, {'name': 'beatrice', 'justification': 'Beatrice seems to be ... because ...'}]"},
+        {"role": "system", "content": "We are playing the guess who game, can you please classify the following characters based on the question and the character to guess that I will give you. Please Return a JSON list with the character, the answer of the question for that characters and a justification for why this answer was chosen The answer can only be yes or no. Please don't mention who is the character to guess in the justification. Example: 'response' : [{'name': 'tina', 'answer': 'yes', 'justification': 'Tina matches  ... because...'}, {'name': 'beatrice', 'answer', 'no', 'justification': 'Beatrice seems to be ... because ...'}, ....]"},
         {"role": "user", "content": f"question: {question}, character to guess: {chosen_character} characters: {characters}"},
     ]
-    response = chat_completion_request(messages)
-    remaining_characters = json.loads(response.choices[0].message.content)["remaining_characters"]
-    response = json.loads(response.choices[0].message.content)["response"]
-    return remaining_characters, response
+    response = json.loads(chat_completion_request(messages).choices[0].message.content)["response"]
+    return response
 
 
 def process_question_and_response(question, response, characters):

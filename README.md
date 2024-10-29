@@ -58,8 +58,9 @@ python websocket_server.py
   - `question` (string): The question asked by the player.
 - **Response**: JSON object containing:
   - `response` (string): The answer to the question.
-  - `remaining_characters` (list): List of remaining characters.
-  - `decision_tree` (list): The current decision tree of the player that containing all the question asked in the game, the answer, and how each question split the set of characters
+  - `remaining_characters` (list): List of remaining characters + justification
+  - `eliminated_characters` (list): List of eliminated characters + justification
+  - `decision_tree` (list): The current decisio` tree of the player that containing all the question asked in the game, the answer, and how each question split the set of characters
   - `robot_question` (string): The question that the robot ask in turn.
   - `attribute` (string): The attribute related to the robot's question.
   - `value` (string): The value related to the robot's question.

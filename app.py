@@ -64,22 +64,29 @@ def ask():
     global decision_tree_player
     data = request.json
     question = data['question']
-    remaining_characters, answer = openai_api.process_question(question, chosen_character, remaining_characters_player)
+    response = openai_api.process_question(question, chosen_character, remaining_characters_player)
+    answer = next(item["answer"] for item in response if item['name'] == chosen_character['name'])
+
+    remaining_characters = [char for char in response if char["answer"] == answer]
+    eliminated_characters = [char for char in response if char["answer"] != answer]
     filtered = filter_characters(characters, remaining_characters)
     information_gain = evaluate_information_gain.calculate_weighted_information_gain(remaining_characters_player, len([char['name'] for char in remaining_characters if char not in filtered]),len([char['name'] for char in filtered]) )
     _, __, ___, max_information_gain = evaluate_information_gain.generate_best_question(remaining_characters_player, attribute_questions)
     decision_tree_player = update_decision_tree(decision_tree_player, question, answer, information_gain , filtered, remaining_characters_player)
+    print(decision_tree_player)
     remaining_characters_player = filtered
     robot_question, best_attribute, best_value, max_gain = evaluate_information_gain.generate_best_question(remaining_characters_robot, attribute_questions)
     resp = {
         "response": answer,
         "remaining_characters": remaining_characters,
+        "eliminated_charaters": eliminated_characters,
         "decision_tree": decision_tree_player,
         "robot_question": robot_question, 
         "attribute": best_attribute,
         "value": best_value, 
         "max_gain" : max_gain
     }
+    print(resp)
     return jsonify(resp)
 
 @app.route('/process_answer', methods=['POST'])
