@@ -1,6 +1,7 @@
 [
     {
         "name": "Amelie",
+        "job_title" : "Managment assistant",
         "description": "Amelie has shoulder-length, wavy dark brown hair. She wears round, thin-rimmed glasses. Her outfit consists of a white button-down shirt, which is both classic and professional. The shirt has the sleeves rolled up slightly, adding a touch of casual ease to her attire. Amelie's expression is composed and confident, with a subtle, poised smile. She has a pair of small gold hoop earrings that add a hint of elegance to her appearance. The solid blue background enhances her features and attire, creating a professional and polished impression.",
         "image": "images/amelie.jpg",
         "sex": "female",
@@ -14,6 +15,7 @@
     },
     {
         "name": "Ann",
+        "job_title" : "Lead Scientific Advisor",
         "description": "Ann has short, neatly styled dark brown hair that complements her professional appearance. She wears round, dark-framed glasses that add a touch of intellectual charm to her look. Her outfit consists of a white top with a subtle textured pattern, providing a clean and sophisticated aesthetic. Ann's expression is warm and composed, with a slight, friendly smile that conveys approachability and confidence. The solid blue background highlights her features and attire, creating a polished and professional impression.",
         "image": "images/ann.jpg",
         "sex": "female",
@@ -27,6 +29,7 @@
     },
     {
         "name": "Carl",
+        "job_title" : "Co-Director (ULB)",
         "description": "Carl has dark brown, slightly wavy hair that is of short to medium length and neatly combed to the side. He sports a full beard and mustache, both of which are well-groomed, adding to his distinguished appearance. He wears round, thin-rimmed glasses that complement his intellectual look. Dressed in a stylish blue suit jacket with a subtle sheen, he pairs it with a crisp white dress shirt, which is buttoned up but without a tie, giving a modern and professional vibe. His pose, with arms confidently crossed over his chest, enhances his authoritative presence. The solid blue background further emphasizes the professional and polished nature of the portrait, making him stand out prominently.",
         "image": "images/carl.jpg",
         "sex": "male",
@@ -40,6 +43,7 @@
     },
     {
         "name": "Diana",
+        "job_title" : "Project Manager, SME's and EDIH",
         "description": "Diana has long, straight, jet-black hair that cascades down her shoulders. She is wearing rectangular, thick-rimmed glasses that frame her face and contribute to her sophisticated look. Her attire consists of a light gray blazer with a subtle herringbone pattern, which she pairs with a light pink blouse, adding a touch of color and softness to her professional outfit. She has a warm and friendly smile, which, along with her slightly tilted pose, conveys approachability and confidence. The solid blue background enhances the focus on her, creating a polished and professional impression.",
         "image": "images/diana.jpg",
         "sex": "female",
@@ -53,6 +57,7 @@
     },
     {
         "name": "Emilie",
+        "job_title" : "Fari Services Hub Coordinator",
         "description": "Emilie has short, curly brown hair that frames her face in a lively and dynamic manner. She wears a pair of stylish, clear-framed glasses that add a modern and intellectual touch to her look. Her outfit consists of a simple yet elegant white turtleneck paired with a dark, cozy cardigan, which gives her a casual yet polished appearance. Emilie is also wearing dark pants, completing her understated and professional ensemble. Her expression is warm and friendly, with a slight smile that conveys approachability and confidence. The solid blue background provides a striking contrast to her dark clothing and enhances her overall presence in the image.",
         "image": "images/emilie.jpg",
         "sex": "female",
@@ -66,6 +71,7 @@
     },
     {
         "name": "Hans",
+        "job_title" : "Co-Director (VUB)",
         "description": "Hans has short, neatly styled brown hair and a well-groomed beard that adds to his warm and approachable appearance. He wears round, metal-rimmed glasses that lend him an intellectual and friendly look. Hans is dressed in a light blue, button-down chambray shirt, which is casual yet stylish, giving him a relaxed but professional vibe. His expression is cheerful, with a broad smile that exudes friendliness and confidence. The solid blue background enhances his features and attire, creating a clean and professional impression.",
         "image": "images/hans.jpg",
         "sex": "male",
@@ -78,33 +84,8 @@
         "has_arm_crossed": false
     },
     {
-        "name": "Hughes",
-        "description": "Hughes has short, wavy gray hair that gives him a distinguished and mature appearance. He is dressed in a light blue button-down shirt under a dark sweater, providing a classic and professional look. Hughes has a friendly and approachable expression, with a slight, warm smile that conveys confidence and kindness. His facial features are well-defined, adding to his distinguished presence. The background suggests an office setting with stacks of books and framed pictures, indicating a scholarly or professional environment. The lighting focuses on his face, highlighting his features and creating a professional and composed impression.",
-        "image": "images/hughes.jpg",
-        "sex": "male",
-        "hair_color": "gray",
-        "hair_length": "short",
-        "has_glasses": false,
-        "has_shirt": true,
-        "hair_type": "wavy",
-        "has_jewelery": false, 
-        "has_arm_crossed": false
-    },
-    {
-        "name": "Julien",
-        "description": "Julien has short, neatly styled brown hair and a well-groomed beard that adds to his approachable and friendly appearance. He has bright blue eyes that stand out and give him a vibrant look. Julien is dressed in a smart casual outfit, wearing a light blue button-down shirt underneath a dark green sweater, which gives him a relaxed yet professional style. His expression is warm and cheerful, with a broad smile that conveys friendliness and openness. The solid blue background enhances his features and attire, creating a clean and professional impression.",
-        "image": "images/julien.jpg",
-        "sex": "male",
-        "hair_color": "brown",
-        "hair_length": "short",
-        "has_glasses": false,
-        "has_shirt": true,
-        "hair_type": "smooth",
-        "has_jewelery": false, 
-        "has_arm_crossed": false
-    },
-    {
         "name": "Karen",
+        "job_title" : "Managing Director",
         "description": "Karen has short, dark brown hair that is styled in soft waves, giving her a polished look. She wears a sleeveless royal blue dress with black lace detailing on the shoulders, which adds a touch of elegance to her appearance. Karen accessorizes with large, round blue earrings that complement her dress and a white smartwatch on her wrist. Her expression is friendly and confident, with a warm smile that conveys approachability. She stands with her arms crossed, exuding confidence and poise. The solid blue background enhances her features and attire, creating a cohesive and professional image.",
         "image": "images/karen.jpg",
         "sex": "female",
@@ -119,6 +100,7 @@
 
     {
         "name": "Lea",
+        "job_title" : "Citizen Engagement Hub Lead",
         "description": "Lea has shoulder-length, wavy black hair that frames her face beautifully. Her hair has a natural, tousled look, giving her a relaxed and approachable demeanor. She is dressed in a black sweater with white vertical stripes, which adds a touch of elegance and sophistication to her outfit. Lea's smile is warm and welcoming, and her slightly tilted pose with arms crossed adds an element of confidence and ease. The solid blue background highlights her features and attire, creating a professional and polished appearance.",
         "image": "images/lea.jpg",
         "sex": "female",
@@ -131,20 +113,8 @@
         "has_arm_crossed": true
     },
     {
-        "name": "Marieke",
-        "description": "Marieke has shoulder-length, wavy dark brown hair that frames her face in a natural, slightly tousled style. She wears a professional and sophisticated black suit, consisting of a tailored blazer over a black blouse. Her attire gives her a polished and authoritative appearance. Marieke's expression is calm and confident, with a slight, friendly smile that enhances her approachable demeanor. Her arms are crossed over her chest, a pose that exudes confidence and self-assuredness. The solid blue background provides a striking contrast to her dark attire and highlights her features, creating a professional and composed image.",
-        "image": "images/marieke.jpg",
-        "sex": "female",
-        "hair_color": "dark brown",
-        "hair_length": "shoulder-length",
-        "has_glasses": false,
-        "has_shirt": false,
-        "hair_type": "wavy",
-        "has_jewelery": false,
-        "has_arm_crossed": true
-    },
-    {
         "name": "Martin",
+        "job_title" : "AI and Data Expert",
         "description": "Martin has short, dark brown hair that is neatly trimmed and a well-groomed beard, giving him a sharp and professional appearance. He wears rectangular, metal-rimmed glasses that enhance his intellectual look. Martin is dressed in a crisp white button-down shirt, which adds to his clean and polished style. His pose, with arms crossed over his chest, conveys confidence and authority. His expression is composed and focused, with a slight, confident smile. The solid blue background highlights his features and attire, creating a professional and sophisticated impression.",
         "image": "images/martin.jpeg",
         "sex": "male",
@@ -158,6 +128,7 @@
     },
     {
         "name": "Mosa",
+        "job_title" : "Frontend Developer",
         "description": "Mosa has a clean-shaven head and a well-groomed appearance, which gives him a distinctive and confident look. He wears a light gray t-shirt that fits comfortably and casually. Mosa has noticeable tattoos on his arms and neck, adding a bold and artistic touch to his style. His expression is calm and composed, with a slight smile that conveys confidence and approachability. His arms are crossed over his chest, further enhancing his self-assured demeanor. The solid blue background highlights his features and attire, creating a clear and professional impression.",
         "image": "images/mosa.jpg",
         "sex": "male",
@@ -171,6 +142,7 @@
     },
     {
         "name": "Sezen",
+        "job_title" : "Science Communication Officer",
         "description": "Sezen is a girl that has long, straight blond hair that is neatly styled, falling past her shoulders. She is wearing small gold hoop earrings that add a touch of elegance to her overall look. Her outfit consists of a light, silky blouse in a cream or champagne color, which is both stylish and professional. The blouse is buttoned up and has slightly puffed sleeves, giving a chic and polished appearance. Sezen's expression is composed and confident, with a slight, friendly smile. Her pose, with arms crossed, adds to her poised and self-assured demeanor. The solid blue background enhances her features and attire, creating a professional and clean impression.",
         "image": "images/sezen.jpg",
         "sex": "female",
@@ -184,6 +156,7 @@
     },
     {
         "name": "Simeon",
+        "job_title" : "AI Developer",
         "description": "Siméon has short, dark brown hair with a neat, slightly tousled style. He is wearing a gray sweater with a bold black pattern, giving him a trendy and stylish appearance. His expression is friendly and relaxed, with a broad smile that conveys warmth and approachability. Siméon has a light beard and mustache, adding a touch of casualness to his look. He accessorizes with a simple bracelet on his wrist. His pose, with arms crossed, exudes confidence and ease. The solid blue background enhances his features and attire, creating a professional and polished impression.",
         "image": "images/simeon.jpg",
         "sex": "male",
@@ -197,6 +170,7 @@
     },
     {
         "name": "Susheel",
+        "job_title" : "AR VR XR specialist, CAVE manager",
         "description": "Susheel has short, neatly styled black hair and a well-groomed beard that complements his strong and confident appearance. He is dressed in a smart, professional outfit consisting of a gray blazer over a black turtleneck, which adds a touch of sophistication and elegance to his look. Susheel's expression is composed and confident, with a slight, friendly smile that conveys approachability. He wears a small stud earring in each ear, adding a modern and stylish detail to his appearance. The solid blue background highlights his features and attire, creating a polished and professional impression.",
         "image": "images/susheel.jpg",
         "sex": "male",
@@ -207,5 +181,48 @@
         "hair_type": "smooth",
         "has_jewelery": true,
         "has_arm_crossed": false
-    }
+    },
+    {
+        "name": "Laurence",
+        "job_title": "Strategy and Reporting Collaborator",
+        "description": "Laurence has shoulder-length, straight hair that is dark blonde with subtle highlights, giving her a warm and approachable look. She is wearing a soft, light green cardigan that adds a touch of coziness to her appearance. Underneath the cardigan, she wears a simple top, creating a casual yet polished outfit. Laurence accessorizes with a delicate necklace featuring a small pendant, adding a hint of elegance. Her expression is friendly and relaxed, with a gentle smile that enhances her approachable demeanor. The solid blue background provides a clean and professional contrast, making her stand out effectively.",
+        "image": "images/laurence.jpg",
+        "sex": "female",
+        "hair_color": "blonde",
+        "hair_length": "shoulder-length",
+        "has_glasses": false,
+        "has_shirt": false,
+        "hair_type": "straight",
+        "has_jewelery": true,
+        "has_arm_crossed": false
+    },
+    {
+        "name": "Kenneth",
+        "job_title" : "Management Assistant",
+        "description": "Kenneth has short, light brown hair with a neat, slightly tousled style that frames his face. He wears round, brown-framed glasses that give him an intellectual and approachable look. Kenneth is dressed in a brown sweater with a subtle, textured pattern, which provides a casual yet stylish appearance. He has a small, neatly trimmed goatee and mustache but no beard. His expression is friendly and confident, with a slight smile that conveys warmth and approachability. He stands with his arms crossed, exuding confidence and ease. The solid blue background highlights his features and attire, creating a professional and polished impression.",
+        "image": "images/kenneth.jpg",
+        "sex": "male",
+        "hair_color": "light brown",
+        "hair_length": "short",
+        "has_glasses": true,
+        "has_shirt": false,
+        "hair_type": "slightly tousled",
+        "has_jewelery": false, 
+        "has_arm_crossed": true
+    },
+    {
+        "name": "Stijn",
+        "job_title" : "Development Management Support",
+        "description": "The individual has short, slightly tousled dark hair. They are dressed in a white button-down shirt, presenting a classic and professional appearance. The sleeves are neatly rolled up, giving a relaxed and approachable vibe. The expression is confident and warm, with a friendly smile. The background is a vibrant blue, which highlights the individual's features and attire, creating a polished and professional impression.",
+        "image": "images/stijn.jpg",
+        "sex": "male",
+        "hair_color": "dark brown",
+        "hair_length": "short",
+        "has_glasses": false,
+        "has_shirt": true,
+        "hair_type": "slightly tousled",
+        "has_jewelery": false,
+        "has_arm_crossed": true
+    } 
+
 ]
