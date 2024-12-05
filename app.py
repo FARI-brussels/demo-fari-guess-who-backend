@@ -32,7 +32,7 @@ def filter_characters(initial_list, remaining_characters):
     return [character for character in initial_list if any(rc['name'] == character['name'] for rc in remaining_characters)]
 
 # Function to update the decision tree with the latest question and answer
-def update_decision_tree(decision_tree, question, answer, information_gain, filtered, remaining_characters):
+def update_decision_tree(decision_tree, question, answer, information_gain, response):
     if answer == "no":
         not_answer = "yes"
     else:
@@ -41,10 +41,13 @@ def update_decision_tree(decision_tree, question, answer, information_gain, filt
         "question": question,
         "response": answer,
         "information_gain": information_gain,
-        not_answer: [char['name'] for char in remaining_characters if char not in filtered],
-        answer: [char['name'] for char in filtered]
+        not_answer: [r for r in response if r['answer'] == not_answer],
+        answer: [r for r in response if r['answer'] == answer]
     })
+    print(decision_tree)
     return decision_tree
+
+
 
 @app.route('/')
 def index():
@@ -66,14 +69,12 @@ def ask():
     question = data['question']
     response = openai_api.process_question(question, chosen_character, remaining_characters_player)
     answer = next(item["answer"] for item in response if item['name'] == chosen_character['name'])
-
     remaining_characters = [char for char in response if char["answer"] == answer]
     eliminated_characters = [char for char in response if char["answer"] != answer]
     filtered = filter_characters(characters, remaining_characters)
     information_gain = evaluate_information_gain.calculate_weighted_information_gain(remaining_characters_player, len([char['name'] for char in remaining_characters if char not in filtered]),len([char['name'] for char in filtered]) )
     _, __, ___, max_information_gain = evaluate_information_gain.generate_best_question(remaining_characters_player, attribute_questions)
-    decision_tree_player = update_decision_tree(decision_tree_player, question, answer, information_gain , filtered, remaining_characters_player)
-    print(decision_tree_player)
+    decision_tree_player = update_decision_tree(decision_tree_player, question, answer, information_gain , response)
     remaining_characters_player = filtered
     robot_question, best_attribute, best_value, max_gain = evaluate_information_gain.generate_best_question(remaining_characters_robot, attribute_questions)
     resp = {
@@ -86,7 +87,6 @@ def ask():
         "value": best_value, 
         "max_gain" : max_gain
     }
-    print(resp)
     return jsonify(resp)
 
 @app.route('/process_answer', methods=['POST'])
@@ -99,9 +99,9 @@ def process_answer():
     answer = data['response']
     question = data['robot_question']
     information_gain = data['max_gain']
-    remaining_characters = evaluate_information_gain.process_question(attribute, value, answer, remaining_characters_robot)
+    remaining_characters, response = evaluate_information_gain.process_question(attribute, value, answer, remaining_characters_robot)
     filtered = filter_characters(remaining_characters_robot, remaining_characters)
-    decision_tree_robot = update_decision_tree(decision_tree_robot, question, answer, information_gain, filtered, remaining_characters_robot)
+    decision_tree_robot = update_decision_tree(decision_tree_robot, question, answer, information_gain, response)
     remaining_characters_robot = filtered
     # Save the remaining characters and decision tree to a JSON file
     with open('robot_state.json', 'w') as f:

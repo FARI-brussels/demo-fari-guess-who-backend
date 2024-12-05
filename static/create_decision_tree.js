@@ -32,7 +32,7 @@ function createDecisionTree(data) {
         }
         const question = data[index];
         const yesNames = names.filter(name => question.yes.includes(name));
-        const noNames = names.filter(name => question.no.includes(name));
+        const noNames = names.filter(name => question.no.includes(name)); 
         return [
             {
                 name: question.question + " (" + names.length + ")" + question.information_gain.toFixed(3),

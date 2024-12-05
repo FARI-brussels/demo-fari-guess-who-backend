@@ -54,11 +54,18 @@ def generate_best_question(data, attributes):
 
 # Function to process a question and return the remaining characters based on the answer
 def process_question(attribute, value, answer, data):
+    justifications = []
+    for item in data:
+        if item[attribute] == value:
+            justifications.append({"name": item["name"], "answer": "yes", "justification": f"{item['name']} has {attribute} equal to {value}"})
+            item["answer"] = answer
+        if item[attribute] != value:
+            justifications.append({"name": item["name"], "answer": "no", "justification": f"{item['name']} has {attribute} equal to {item[attribute]}"})
     if answer == "yes":
         remaining_characters = [item for item in data if item[attribute] == value]
     else:
         remaining_characters = [item for item in data if item[attribute] != value]
-    return remaining_characters
+    return remaining_characters, justifications
     
 
 
